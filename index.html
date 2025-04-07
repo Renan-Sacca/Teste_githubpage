@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carteirinha Estudantil</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #0a4e9a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h2 {
+      color: #0a4e9a;
+    }
+
+    .student-card {
+      display: flex;
+      background: linear-gradient(to right, #0e1d52, #1d2c6e);
+      color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .left, .right {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .left {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .photo {
+      width: 100px;
+      height: 120px;
+      background: #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .qr-code {
+      width: 140px;
+      height: 140px;
+      background: white;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      font-weight: bold;
+      display: block;
+    }
+
+    .field span {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="instituicao">Unimar - Universidade de Marília</h1>
+  </header>
+
+  <div class="container">
+    <h2>Carteirinha Estudantil</h2>
+
+    <div class="student-card">
+      <div class="left">
+        <div class="photo" id="foto"></div>
+        <div class="field">
+          <label>Nome:</label>
+          <span id="nome">---</span>
+        </div>
+        <div class="field">
+          <label>Curso:</label>
+          <span id="curso">---</span>
+        </div>
+        <div class="field">
+          <label>CPF:</label>
+          <span id="cpf">---</span>
+        </div>
+        <div class="field">
+          <label>Validade:</label>
+          <span id="validade">---</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="qr-code" id="qr"></div>
+        <div class="field">
+          <label>Código de Validação:</label>
+          <span id="codigo">---</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Função para pegar parâmetros da URL
+    function getParams() {
+      const params = {};
+      const queryString = window.location.search.slice(1);
+      const pairs = queryString.split("&");
+
+      for (const pair of pairs) {
+        const [key, value] = pair.split("=");
+        if (key) {
+          params[key] = decodeURIComponent(value || "");
+        }
+      }
+
+      return params;
+    }
+
+    const params = getParams();
+
+    if (params.instituicao) document.getElementById("instituicao").textContent = params.instituicao;
+    if (params.nome) document.getElementById("nome").textContent = params.nome;
+    if (params.curso) document.getElementById("curso").textContent = params.curso;
+    if (params.cpf) document.getElementById("cpf").textContent = params.cpf;
+    if (params.validade) document.getElementById("validade").textContent = params.validade;
+    if (params.codigo) document.getElementById("codigo").textContent = params.codigo;
+
+    if (params.foto) {
+      const img = document.createElement("img");
+      img.src = params.foto;
+      document.getElementById("foto").appendChild(img);
+    }
+
+    if (params.qr) {
+      const img = document.createElement("img");
+      img.src = params.qr;
+      document.getElementById("qr").appendChild(img);
+    }
+  </script>
+</body>
+</html>
